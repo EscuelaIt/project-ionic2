@@ -13,6 +13,7 @@ export class TimelinePage {
       img: 'assets/img/img1.jpg',
       text: 'Hola, esta',
       location: 'Mi casa',
+      favorite: true,
       user: {
         name: 'Nicolas',
         avatar: 'assets/img/nicobytes.jpg'
@@ -22,6 +23,7 @@ export class TimelinePage {
       img: 'assets/img/img2.jpg',
       text: 'Hola, esta',
       location: 'Chile',
+      favorite: false,
       user: {
         name: 'Nicolas',
         avatar: 'assets/img/nicobytes.jpg'
@@ -36,6 +38,10 @@ export class TimelinePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TimelinePage');
+  }
+
+  favorite( post ){
+    post.favorite = !post.favorite;
   }
 
   showOptions( post ){

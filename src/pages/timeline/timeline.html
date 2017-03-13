@@ -19,7 +19,7 @@
       </button>
     </ion-item>
     <img [src]="post.img" />
-    <button ion-button color="dark" clear icon-only>
+    <button ion-button (click)="favorite( post )" [color]="post.favorite ? 'danger': 'dark'" clear icon-only>
       <ion-icon name="heart"></ion-icon>
     </button>
     <button ion-button color="dark" clear icon-only>

@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { TimelinePage } from '../timeline/timeline'
-import { SearchPage } from '../search/search'
-import { ActivityPage } from '../activity/activity'
-import { ProfilePage } from '../profile/profile'
+import { NavController, ModalController } from 'ionic-angular';
+import { TimelinePage } from '../timeline/timeline';
+import { SearchPage } from '../search/search';
+import { ActivityPage } from '../activity/activity';
+import { ProfilePage } from '../profile/profile';
+import { CameraPage } from '../camera/camera';
 
-/*
-  Generated class for the Tabs tabs.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html'
@@ -22,8 +17,14 @@ export class TabsPage {
   tab3Root: any = ActivityPage;
   tab4Root: any = ProfilePage;
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController
+  ) {}
 
+  showCameraModal(){
+    let modal = this.modalCtrl.create( CameraPage );
+    modal.present();
   }
 
 }

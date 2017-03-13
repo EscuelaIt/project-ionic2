@@ -1,22 +1,67 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, ViewController, NavParams } from 'ionic-angular';
 
-/*
-  Generated class for the Camera page.
+import { FiltersPage } from '../filters/filters';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-camera',
   templateUrl: 'camera.html'
 })
 export class CameraPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  photoSelected: any = {};
+
+  photos:any[] = [
+    {
+      name: '1',
+      img: 'assets/img/img1.jpg'
+    },
+    {
+      name: '1',
+      img: 'assets/img/img2.jpg'
+    },
+    {
+      name: '1',
+      img: 'assets/img/img3.jpg'
+    },
+    {
+      name: '1',
+      img: 'assets/img/img4.jpg'
+    },
+    {
+      name: '1',
+      img: 'assets/img/img5.jpg'
+    },
+    {
+      name: '1',
+      img: 'assets/img/img6.jpg'
+    }
+  ];
+
+  constructor(
+    public navCtrl: NavController,
+    public viewCtrl: ViewController,
+    public navParams: NavParams
+  ) {
+    this.photoSelected = this.photos[0];
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CameraPage');
+  }
+
+  close(){
+    this.viewCtrl.dismiss();
+  }
+
+  changePhotoSelected( photo ){
+    this.photoSelected = photo;
+  }
+
+  goToFiltersPage(){
+    this.navCtrl.push( FiltersPage, {
+      photo: this.photoSelected
+    });
   }
 
 }

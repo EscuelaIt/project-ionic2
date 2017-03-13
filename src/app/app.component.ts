@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { AngularFireAuth } from 'angularfire2';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -10,14 +11,30 @@ import { LoginPage } from '../pages/login/login';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = LoginPage;
 
-  constructor(platform: Platform) {
+  rootPage: any = LoginPage;
+
+  constructor(
+    public platform: Platform,
+    public fireAuth: AngularFireAuth
+  ) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+      this.checkSession();
     });
+  }
+
+  private checkSession(){
+    this.fireAuth.subscribe(session =>{
+      this.rootPage = this.getPageInit(session);
+    })
+  }
+
+  private getPageInit(session):any{
+    if (session){
+      return TabsPage;
+    }
+    return LoginPage;
   }
 }

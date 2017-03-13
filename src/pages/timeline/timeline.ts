@@ -66,7 +66,7 @@ export class TimelinePage {
           text: 'Share',
           handler: () => {
             let message = post.text;
-            let image = post.img;
+            let image = 'http://www.nicobytes.com/images/photo.jpg';
             SocialSharing.share(message, 'test', image, 'https://news.ycombinator.com/')
             .catch(error=>{
               console.error(error)

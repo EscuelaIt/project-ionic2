@@ -1,22 +1,47 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularFireAuth } from 'angularfire2';
 
-/*
-  Generated class for the Register page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html'
 })
 export class RegisterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  registerForm: FormGroup;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+  constructor(
+    private navCtrl: NavController,
+    public fireAuth: AngularFireAuth,
+    public loadCtrl: LoadingController,
+    public fb: FormBuilder,
+  ) {
+    this.registerForm = this.makeRegisterForm();
+  }
+
+  doRegister(){
+    let load = this.loadCtrl.create({
+      dismissOnPageChange: true
+    });
+    load.present( load );
+    this.fireAuth.createUser({
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password
+    })
+    .catch(error=>{
+      console.log(error);
+      load.dismiss();
+    });
+  }
+
+  private makeRegisterForm(){
+    return this.fb.group({
+      user: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    })
   }
 
 }

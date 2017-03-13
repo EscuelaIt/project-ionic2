@@ -1,22 +1,72 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, ActionSheetController } from 'ionic-angular';
+import { SocialSharing } from 'ionic-native';
 
-/*
-  Generated class for the Timeline page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-timeline',
   templateUrl: 'timeline.html'
 })
 export class TimelinePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  timeline:any[] = [
+    {
+      img: 'assets/img/img1.jpg',
+      text: 'Hola, esta',
+      location: 'Mi casa',
+      user: {
+        name: 'Nicolas',
+        avatar: 'assets/img/nicobytes.jpg'
+      }
+    },
+    {
+      img: 'assets/img/img2.jpg',
+      text: 'Hola, esta',
+      location: 'Chile',
+      user: {
+        name: 'Nicolas',
+        avatar: 'assets/img/nicobytes.jpg'
+      }
+    }
+  ];
+
+  constructor(
+    public navCtrl: NavController,
+    public sheetCtrl: ActionSheetController
+  ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TimelinePage');
+  }
+
+  showOptions( post ){
+    let action = this.sheetCtrl.create({
+      title: 'Options post',
+      buttons: [
+        {
+          text: 'Destructive',
+          role: 'destructive',
+          handler: () => {
+            console.log('Destructive clicked');
+          }
+        },
+        {
+          text: 'Share',
+          handler: () => {
+            let message = post.text;
+            let image = post.img;
+            SocialSharing.share(message, image)
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    action.present( action );
   }
 
 }

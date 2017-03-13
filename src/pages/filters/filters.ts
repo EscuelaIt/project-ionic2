@@ -1,22 +1,65 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-/*
-  Generated class for the Filters page.
+import { TabsPage } from '../tabs/tabs';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-filters',
   templateUrl: 'filters.html'
 })
 export class FiltersPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  photo: any = {};
+  filterSelected: any = {};
+  filters: any[] = [
+    {
+      name: 'Normal',
+      class: 'none'
+    },
+    {
+      name: 'Sepia',
+      class: 'sepia'
+    },
+    {
+      name: 'Sature',
+      class: 'sature'
+    },
+    {
+      name: 'Hue-rotate',
+      class: 'hue-rotate'
+    },
+    {
+      name: 'Grayscale',
+      class: 'grayscale'
+    }
+  ];
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {}
+
+  changeFilterSelected( filter ){
+    this.filterSelected = filter;
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FiltersPage');
+    this.photo = this.navParams.get('photo');
+  }
+
+  savePhoto(){
+    let post = {
+      img: this.photo.img,
+      text: 'Hola, esta',
+      location: 'Chile',
+      user: {
+        name: 'Nicolas',
+        avatar: 'assets/img/nicobytes.jpg',
+      }
+    };
+    //this.
+    //this.timelineService.createPost( post );
+    this.navCtrl.setRoot( TabsPage );
   }
 
 }

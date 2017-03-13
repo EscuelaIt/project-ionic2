@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
+import { TimelineService } from '../../providers/timeline-service';
 
 @Component({
   selector: 'page-filters',
@@ -36,7 +37,8 @@ export class FiltersPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public timelineService: TimelineService,
   ) {}
 
   changeFilterSelected( filter ){
@@ -52,13 +54,13 @@ export class FiltersPage {
       img: this.photo.img,
       text: 'Hola, esta',
       location: 'Chile',
+      favorite: false,
       user: {
         name: 'Nicolas',
         avatar: 'assets/img/nicobytes.jpg',
       }
     };
-    //this.
-    //this.timelineService.createPost( post );
+    this.timelineService.createPost( post );
     this.navCtrl.setRoot( TabsPage );
   }
 

@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let post of timeline">
+  <ion-card *ngFor="let post of timeline | async">
     <ion-item>
       <ion-avatar item-left>
         <img [src]="post.user.avatar" />

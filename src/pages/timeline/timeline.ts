@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, ActionSheetController } from 'ionic-angular';
 import { SocialSharing } from 'ionic-native';
+import { FirebaseListObservable } from 'angularfire2';
+
+import { TimelineService } from '../../providers/timeline-service';
 
 @Component({
   selector: 'page-timeline',
@@ -8,7 +11,8 @@ import { SocialSharing } from 'ionic-native';
 })
 export class TimelinePage {
 
-  timeline:any[] = [
+  timeline: FirebaseListObservable<any>;
+  /*timeline:any[] = [
     {
       img: 'assets/img/img1.jpg',
       text: 'Hola, esta',
@@ -29,12 +33,15 @@ export class TimelinePage {
         avatar: 'assets/img/nicobytes.jpg'
       }
     }
-  ];
+  ];*/
 
   constructor(
     public navCtrl: NavController,
-    public sheetCtrl: ActionSheetController
-  ) {}
+    public sheetCtrl: ActionSheetController,
+    public timelineService: TimelineService,
+  ) {
+    this.timeline = timelineService.getFullTimeline();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TimelinePage');

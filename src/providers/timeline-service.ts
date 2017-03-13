@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 
-/*
-  Generated class for the TimelineService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class TimelineService {
 
-  constructor(public http: Http) {
-    console.log('Hello TimelineService Provider');
+  timeline: FirebaseListObservable<any>;
+
+  constructor(
+    private database: AngularFireDatabase
+  ){
+    this.timeline = database.list('/timeline');
+  }
+
+  getFullTimeline(){
+   return this.timeline; 
+  }
+
+  createPost(post:any){
+    this.timeline.push( post );
   }
 
 }

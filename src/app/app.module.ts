@@ -1,8 +1,15 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import { MyApp } from './app.component';
+
+import { Camera } from '@ionic-native/camera';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { ActivityPage } from '../pages/activity/activity';
 import { CameraPage } from '../pages/camera/camera';
@@ -44,8 +51,10 @@ const myFirebaseAuthConfig = {
     TimelinePage
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
-     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -62,7 +71,11 @@ const myFirebaseAuthConfig = {
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    TimelineService
+    TimelineService,
+    Camera,
+    StatusBar,
+    SplashScreen,
+    SocialSharing
   ]
 })
 export class AppModule {}

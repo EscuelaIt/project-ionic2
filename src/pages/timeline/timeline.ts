@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ActionSheetController } from 'ionic-angular';
-import { SocialSharing } from 'ionic-native';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { FirebaseListObservable } from 'angularfire2';
 
 import { TimelineService } from '../../providers/timeline-service';
@@ -39,6 +39,7 @@ export class TimelinePage {
     public navCtrl: NavController,
     public sheetCtrl: ActionSheetController,
     public timelineService: TimelineService,
+    public socialSharing: SocialSharing
   ) {
     this.timeline = timelineService.getFullTimeline();
   }
@@ -67,7 +68,7 @@ export class TimelinePage {
           handler: () => {
             let message = post.text;
             let image = 'http://www.nicobytes.com/images/photo.jpg';
-            SocialSharing.share(message, 'test', image, 'https://news.ycombinator.com/')
+            this.socialSharing.share(message, 'test', image, 'https://news.ycombinator.com/')
             .catch(error=>{
               console.error(error)
             })

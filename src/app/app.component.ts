@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -12,16 +13,18 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
 
-  rootPage: any = LoginPage;
+  rootPage: any = 'HeroesPage';
 
   constructor(
     public platform: Platform,
-    public fireAuth: AngularFireAuth
+    public fireAuth: AngularFireAuth,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen
   ) {
     platform.ready().then(() => {
-      StatusBar.styleDefault();
-      Splashscreen.hide();
-      this.checkSession();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+      //this.checkSession();
     });
   }
 
